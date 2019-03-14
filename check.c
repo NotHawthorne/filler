@@ -6,7 +6,7 @@
 /*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 02:54:15 by alkozma           #+#    #+#             */
-/*   Updated: 2019/03/13 23:26:29 by alkozma          ###   ########.fr       */
+/*   Updated: 2019/03/14 01:01:14 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,25 @@ int		place(t_filler *f)
 			y++;
 		}
 		x++;
+	}
+	return (0);
+}
+
+int		is_edge(int x, int y, t_filler *f)
+{
+	int	i;
+
+	i = 0;
+	while (f->piece[i])
+	{
+		if (f->piece[i][0] + x == 0)
+			return ((f->left_linked = 1));
+		else if (f->piece[i][0] + x == f->max_x - 1)
+			return ((f->right_linked = 1));
+		else if (f->piece[i][1] + y == 0)
+			return ((f->top_linked = 1));
+		else if (f->piece[i++][1] + y == f->max_y - 1)
+			return ((f->bot_linked = 1));
 	}
 	return (0);
 }

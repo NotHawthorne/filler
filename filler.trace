@@ -1,5 +1,5 @@
-seed = 5461
-O: error on input
-./resources/players/abanlin.filler won
+seed = 4158
+O: timedout
+../../lcharvol_filler/assets/players/abarriel.filler won
 Score:
-155AGAINST188
+241AGAINST967

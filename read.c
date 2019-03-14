@@ -6,7 +6,7 @@
 /*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 01:56:37 by alkozma           #+#    #+#             */
-/*   Updated: 2019/03/13 23:29:05 by alkozma          ###   ########.fr       */
+/*   Updated: 2019/03/14 01:48:22 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-int		read_input(void)
+int		read_input(t_filler *f)
 {
 	char		*line;
-	t_filler	*f;
 	int			i;
 	char		**elems;
 
 	line = NULL;
 	if (get_next_line(0, &line) > 0)
 	{
-		f = (t_filler*)malloc(sizeof(t_filler));
 		i = -1;
 		f->max_x = ft_atoi(ft_strsplit(line, ' ')[2]);
 		f->max_y = ft_atoi(ft_strsplit(line, ' ')[1]);
@@ -35,7 +33,7 @@ int		read_input(void)
 		f->max_piece_x = ft_atoi(elems[1]);
 		f->max_piece_y = ft_atoi(elems[2]);
 		f->piece = read_piece(f->max_piece_x, f->max_piece_y);
-		return (move_right_up(f));
+		return (decide_direction(f));
 	}
 	return (0);
 }
