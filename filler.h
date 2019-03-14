@@ -6,7 +6,7 @@
 /*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 01:57:45 by alkozma           #+#    #+#             */
-/*   Updated: 2019/03/13 17:53:01 by alkozma          ###   ########.fr       */
+/*   Updated: 2019/03/13 23:27:54 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,8 @@ int		owner(int y, int x, t_filler *f);
 int		can_place(int x, int y, t_filler *f);
 int		place(t_filler *f);
 
+int		move_right_down(t_filler *f);
+int		move_left_down(t_filler *f);
+int		move_right_up(t_filler *f);
+int		move_left_up(t_filler *f);
 #endif

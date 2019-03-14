@@ -6,7 +6,7 @@
 #    By: alkozma <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/13 18:06:36 by alkozma           #+#    #+#              #
-#    Updated: 2019/03/13 18:18:11 by alkozma          ###   ########.fr        #
+#    Updated: 2019/03/13 22:14:24 by alkozma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = buttstallion.filler
 
 SRCS = check.c \
 	   main.c \
-	   read.c
+	   read.c \
+	   direction.c
 
 OBJECTS = $(patsubst %.c,%.o,$(SRCS))
 

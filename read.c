@@ -6,7 +6,7 @@
 /*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 01:56:37 by alkozma           #+#    #+#             */
-/*   Updated: 2019/03/13 18:40:11 by alkozma          ###   ########.fr       */
+/*   Updated: 2019/03/13 23:29:05 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		read_input(void)
 		f->max_piece_x = ft_atoi(elems[1]);
 		f->max_piece_y = ft_atoi(elems[2]);
 		f->piece = read_piece(f->max_piece_x, f->max_piece_y);
-		return (place(f));
+		return (move_right_up(f));
 	}
 	return (0);
 }
@@ -65,8 +65,11 @@ char	**read_map(int max_x, int max_y)
 		if (++y == max_y)
 			break ;
 	}
-	ret[0][(i - 1) / 8] <<= (8 - (i % 8));
-	ret[1][(i - 1) / 8] <<= (8 - (i % 8));
+	if (i % 8 > 0)
+	{
+		ret[0][(i - 1) / 8] <<= (8 - (i % 8));
+		ret[1][(i - 1) / 8] <<= (8 - (i % 8));
+	}
 	return (ret);
 }
 

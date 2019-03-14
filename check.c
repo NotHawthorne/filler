@@ -6,7 +6,7 @@
 /*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 02:54:15 by alkozma           #+#    #+#             */
-/*   Updated: 2019/03/13 16:55:40 by alkozma          ###   ########.fr       */
+/*   Updated: 2019/03/13 23:26:29 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int		can_place(int x, int y, t_filler *f)
 	while (f->piece[i])
 	{
 		cell_owner = -1;
-		if (f->piece[i][0] + x >= 0 && f->piece[i][1] + y >= 0)
+		if ((f->piece[i][0] + x >= 0 && f->piece[i][0] + x < f->max_x) &&
+				(f->piece[i][1] + y >= 0 && f->piece[i][1] + y < f->max_y))
 			cell_owner = owner(f->piece[i][0] + x, f->piece[i][1] + y, f);
 		else
 			return (0);
