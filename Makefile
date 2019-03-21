@@ -6,16 +6,17 @@
 #    By: alkozma <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/13 18:06:36 by alkozma           #+#    #+#              #
-#    Updated: 2019/03/13 22:14:24 by alkozma          ###   ########.fr        #
+#    Updated: 2019/03/21 13:19:26 by alkozma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = buttstallion.filler
+NAME = filler
 
 SRCS = check.c \
 	   main.c \
 	   read.c \
-	   direction.c
+	   position.c \
+	   strategy.c
 
 OBJECTS = $(patsubst %.c,%.o,$(SRCS))
 
@@ -39,6 +40,6 @@ clean:
 
 fclean: clean
 	make -C libft fclean
-	rm -rf $(NAME)
+	rm -rf $(NAME) libft.a
 
 re: fclean all

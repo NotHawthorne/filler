@@ -6,7 +6,7 @@
 /*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 02:54:15 by alkozma           #+#    #+#             */
-/*   Updated: 2019/03/14 01:01:14 by alkozma          ###   ########.fr       */
+/*   Updated: 2019/03/19 05:41:28 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ int		owner(int x, int y, t_filler *f)
 {
 	int magic_formula;
 
+	if (x < 0 || y < 0)
+		return (-1);
 	magic_formula = (y * f->max_x) + x;
-	if ((f->map[0][magic_formula / 8] >> (7 - (magic_formula % 8))) & 1)
+	if ((f->map[(f->player == 1 ? 1 : 0)][magic_formula / 8]
+				>> (7 - (magic_formula % 8))) & 1)
 		return (1);
-	if ((f->map[1][magic_formula / 8] >> (7 - (magic_formula % 8))) & 1)
+	if ((f->map[(f->player == 1 ? 0 : 1)][magic_formula / 8]
+				>> (7 - (magic_formula % 8))) & 1)
 		return (2);
 	return (0);
 }

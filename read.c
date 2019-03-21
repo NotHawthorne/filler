@@ -6,7 +6,7 @@
 /*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 01:56:37 by alkozma           #+#    #+#             */
-/*   Updated: 2019/03/14 01:48:22 by alkozma          ###   ########.fr       */
+/*   Updated: 2019/03/20 15:51:06 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ int		read_input(t_filler *f)
 		f->max_piece_x = ft_atoi(elems[1]);
 		f->max_piece_y = ft_atoi(elems[2]);
 		f->piece = read_piece(f->max_piece_x, f->max_piece_y);
-		return (decide_direction(f));
+		i = glomp(f);
+		free(f->map[0]);
+		free(f->map[1]);
+		free(f->map);
+		free_piece(f);
+		return (i);
 	}
 	return (0);
 }
@@ -41,7 +46,7 @@ int		read_input(t_filler *f)
 char	**read_map(int max_x, int max_y)
 {
 	char	**ret;
-	char	*line;
+	char	*l;
 	int		y;
 	int		i;
 
@@ -51,23 +56,19 @@ char	**read_map(int max_x, int max_y)
 			!(ret[0] = (char*)malloc(sizeof(char) * ((max_x * max_y) / 8))) ||
 			!(ret[1] = (char*)malloc(sizeof(char) * ((max_x * max_y) / 8))))
 		return (NULL);
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(0, &l) > 0 && (l += 3))
 	{
-		line += 3;
-		while (*(++line))
+		while (*(++l))
 		{
-			ret[0][i / 8] = (ret[0][i / 8] << 1) + (*line == 'O');
-			ret[1][i / 8] = (ret[1][i / 8] << 1) + (*line == 'X');
+			ret[0][i / 8] = (ret[0][i / 8] << 1) + (*l == 'O' || *l == 'o');
+			ret[1][i / 8] = (ret[1][i / 8] << 1) + (*l == 'X' || *l == 'x');
 			i++;
 		}
 		if (++y == max_y)
 			break ;
 	}
-	if (i % 8 > 0)
-	{
-		ret[0][(i - 1) / 8] <<= (8 - (i % 8));
-		ret[1][(i - 1) / 8] <<= (8 - (i % 8));
-	}
+	ret[0][(i - 1) / 8] <<= (i % 8 > 0 ? (8 - (i % 8)) : 0);
+	ret[1][(i - 1) / 8] <<= (i % 8 > 0 ? (8 - (i % 8)) : 0);
 	return (ret);
 }
 
@@ -89,18 +90,32 @@ int		**read_piece(int max_x, int max_y)
 		while (*line)
 		{
 			if (*line++ != '.')
-			{
-				if (!(ret[i] = (int*)malloc(sizeof(int) * 2)))
-					return (NULL);
-				ret[i][0] = x;
-				ret[i++][1] = y;
-			}
+				ret[i++] = create_piece(x, y);
 			x = (x + 1) % max_y;
 		}
-		y++;
-		if (y >= max_x)
+		if (++y >= max_x)
 			break ;
 	}
 	ret[i] = NULL;
 	return (ret);
+}
+
+int		*create_piece(int x, int y)
+{
+	int *ret;
+
+	if (!(ret = (int*)malloc(sizeof(int) * 2)))
+		return (NULL);
+	ret[0] = x;
+	ret[1] = y;
+	return (ret);
+}
+
+void	free_piece(t_filler *f)
+{
+	int		i;
+
+	i = 0;
+	while (f->piece[i])
+		free(f->piece[i++]);
 }
